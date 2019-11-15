@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+{{backlink|safe}}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="/url/of/next/page" method="post">
+
+        {{ govukRadios({
+        idPrefix: "type-facility",
+        name: "type-facility",
+        fieldset: {
+          legend: {
+            text: "What type of facility do you want the permit for?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        items: [
+          {
+            value: "ground-water-activity",
+            text: "Groundwater activity"
+          },
+          {
+            value: "installation",
+            text: "Installation"
+          },
+          {
+            value: "landfill-and-deposit-for-recovery",
+            text: "Landfill and deposit for recovery"
+          },
+          {
+            value: "medium-combustion-plant-or-specified-generator",
+            text: "Medium combustion plant or specified generator"
+          },
+          {
+            value: "mining-waste-operation",
+            text: "Mining waste operation"
+          },
+          {
+            value: "waste-operation",
+            text: "Waste operation"
+          },
+          {
+            value: "water-discharge",
+            text: "Water discharge"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+
+    </div>
+  </div>
+
+
+{% endblock %}
