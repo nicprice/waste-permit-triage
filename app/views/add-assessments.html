@@ -29,48 +29,55 @@
       <form class="form" action="/confirm-activities-assessments" method="post">
 
 
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <h2 class="govuk-heading-m">Facility type</h2>
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> facility type</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ data['type-facility'] }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+            </dd>
+          </div>
+          </dl>
 
-        {{ govukSummaryList({
-                classes: 'govuk-!-margin-bottom-9',
-                rows: [
-                  {
-                    key: {
-                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
-                    },
-                    value: {
-                      text: ""
-                    },
-                    actions: {
-                      items: [
-                        {
-                          href: "#",
-                          text: "Change",
-                          visuallyHiddenText: "name"
-                        }
-                      ]
-                    }
-                  }]})}}
-
- {{ govukSummaryList({
-         classes: 'govuk-!-margin-bottom-9',
-         rows: [
-           {
-             key: {
-               html: '<h2 class="govuk-heading-m">Activities</h2>'
-             },
-             value: {
-               text: ""
-             },
-             actions: {
-               items: [
-                 {
-                   href: "#",
-                   text: "Change",
-                   visuallyHiddenText: "name"
-                 }
-               ]
-             }
-           }]})}}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <h2 class="govuk-heading-m">Activities</h2>
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+                  Change<span class="govuk-visually-hidden"> activity</span>
+                </a>
+              </dd>
+            </div>
+            {% for i in data['waste-activities'] %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ [i]}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+              </dd>
+            </div>
+                {% endfor %}
+            </dl>
 
           <h2 class="govuk-heading-m">Assessments</h2>
 
@@ -81,8 +88,8 @@
           <p class="govuk-body">Choose any other assessments required for your application. These are identified by your risk assessment and our pre-application team.</p>
 
         {{ govukCheckboxes({
-      idPrefix: "assessments",
-      name: "assessments",
+      idPrefix: "waste-assessments",
+      name: "waste-assessments",
       fieldset: {
         legend: {
           text: "",
@@ -95,24 +102,29 @@
       },
       items: [
         {
-          value: "dust-emissions",
-          text: "Dust and emissions management plan"
+          value: "Dust and emissions management plan",
+          text: "Dust and emissions management plan",
+          checked: checked("waste-assessments", "assessments")
         },
         {
-          value: "habitats-assessment",
-          text: "Habitats assessment"
+          value: "Habitats assessment",
+          text: "Habitats assessment",
+          checked: checked("waste-assessments", "assessments")
         },
         {
-          value: "noise-vibration",
-          text: "Noise and vibration emissions documents"
+          value: "Noise and vibration emissions documents",
+          text: "Noise and vibration emissions documents",
+          checked: checked("waste-assessments", "assessments")
         },
         {
-          value: "pest-management",
-          text: "Pest management plan"
+          value: "Pest management plan",
+          text: "Pest management plan",
+          checked: checked("waste-assessments", "assessments")
         },
         {
-          value: "waste-recovery",
-          text: "Waste recovery plan"
+          value: "Waste recovery plan",
+          text: "Waste recovery plan",
+          checked: checked("waste-assessments", "assessments")
         }
       ]
     }) }}

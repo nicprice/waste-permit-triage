@@ -26,31 +26,37 @@
 
       <form class="form" action="/activities-summary" method="post">
 
-<h1 class="govuk-heading-xl">Which types of waste do you transport?</h1>
+<h1 class="govuk-heading-xl">Add activities to the permit</h1>
 
-        {{ govukSummaryList({
-                classes: 'govuk-!-margin-bottom-9',
-                rows: [
-                  {
-                    key: {
-                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
-                    },
-                    value: {
-                      text: ""
-                    },
-                    actions: {
-                      items: [
-                        {
-                          href: "#",
-                          text: "Change",
-                          visuallyHiddenText: "name"
-                        }
-                      ]
-                    }
-                  }]})}}
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <h2 class="govuk-heading-m">Facility type</h2>
+    </dt>
+    <dd class="govuk-summary-list__value">
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> facility type</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      {{ data['type-facility'] }}
+    </dt>
+    <dd class="govuk-summary-list__value">
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+  </dl>
+
+
         {{ govukCheckboxes({
-      idPrefix: "waste",
-      name: "waste",
+      idPrefix: "waste-activities",
+      name: "waste-activities",
       fieldset: {
         legend: {
           text: "",
@@ -63,64 +69,79 @@
       },
       items: [
         {
-          value: "biological-treatment",
-          text: "Biological treatment of waste - not composting"
+          value: "Biological treatment of waste - not composting",
+          text: "Biological treatment of waste - not composting",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "chemical-treatment",
-          text: "Chemical treatment of waste"
+          value: "Chemical treatment of waste",
+          text: "Chemical treatment of waste",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "clinical-waste-transfer",
-          text: "Clinical waste transfer station"
+          value: "Clinical waste transfer station",
+          text: "Clinical waste transfer station",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "composting-facility",
-          text: "Composting facility"
+          value: "Composting facility",
+          text: "Composting facility",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "hazardous-waste-transfer",
-          text: "Hazardous waste transfer station"
+          value: "Hazardous waste transfer station",
+          text: "Hazardous waste transfer station",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "household-waste-amenity-hazardous",
-          text: "Household waste amenity site taking hazardous waste"
+          value: "Household waste amenity site taking hazardous waste",
+          text: "Household waste amenity site taking hazardous waste",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "household-waste-amenity-non-hazardous",
-          text: "Household waste amenity site taking non-hazardous waste only"
+          value: "Household waste amenity site taking non-hazardous waste only",
+          text: "Household waste amenity site taking non-hazardous waste only",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "household-commercial-industrial-transfer",
-          text: "Household, commercial and industrial waste transfer station"
+          value: "Household, commercial and industrial waste transfer station",
+          text: "Household, commercial and industrial waste transfer station",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "material-recycling-facility",
-          text: "Material recycling facility"
+          value: "Material recycling facility",
+          text: "Material recycling facility",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "metal-recycling-site-mixed",
-          text: "Metal recycling site - mixed metals"
+          value: "Metal recycling site - mixed metals",
+          text: "Metal recycling site - mixed metals",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "mobile-plant",
-          text: "Mobile plant – treatment of waste - not land spreading"
+          value: "Mobile plant – treatment of waste - not land spreading",
+          text: "Mobile plant – treatment of waste - not land spreading",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "physical-chemical-treatment",
-          text: "Physical and chemical treatment of waste"
+          value: "Physical and chemical treatment of waste",
+          text: "Physical and chemical treatment of waste",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "physical-treatment-hazardous",
-          text: "Physical treatment of hazardous waste"
+          value: "Physical treatment of hazardous waste",
+          text: "Physical treatment of hazardous waste",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "transfer-nonbiodegradable",
-          text: "Transfer station taking nonbiodegradable wastes"
+          value: "Transfer station taking nonbiodegradable wastes",
+          text: "Transfer station taking nonbiodegradable wastes",
+          checked: checked("waste-activities", "activities")
         },
         {
-          value: "vehicle-dismantling",
-          text: "Vehicle dismantling - metal recycling site"
+          value: "Vehicle dismantling - metal recycling site",
+          text: "Vehicle dismantling - metal recycling site",
+          checked: checked("waste-activities", "activities")
         }
       ]
     }) }}

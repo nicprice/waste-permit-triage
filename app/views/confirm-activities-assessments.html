@@ -23,78 +23,89 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-xl">Add or remove assessments</h1>
+<h1 class="govuk-heading-xl">Confirm activities and assessments</h1>
 
 
       <form class="form" action="/" method="post">
 
-        {{ govukSummaryList({
-                classes: 'govuk-!-margin-bottom-9',
-                rows: [
-                  {
-                    key: {
-                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
-                    },
-                    value: {
-                      text: ""
-                    },
-                    actions: {
-                      items: [
-                        {
-                          href: "#",
-                          text: "Change",
-                          visuallyHiddenText: "name"
-                        }
-                      ]
-                    }
-                  }]})}}
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <h2 class="govuk-heading-m">Facility type</h2>
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> facility type</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ data['type-facility'] }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+            </dd>
+          </div>
+          </dl>
 
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <h2 class="govuk-heading-m">Activities</h2>
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+                  Change<span class="govuk-visually-hidden"> activity</span>
+                </a>
+              </dd>
+            </div>
+            {% for i in data['waste-activities'] %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ [i]}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+              </dd>
+            </div>
+                {% endfor %}
+            </dl>
 
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  <h2 class="govuk-heading-m">Assessments</h2>
+                </dt>
+                <dd class="govuk-summary-list__value">
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">
+                    Change<span class="govuk-visually-hidden"> assessment</span>
+                  </a>
+                </dd>
+              </div>
+              {% for i in data['waste-assessments'] %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ [i]}}
+                </dt>
+                <dd class="govuk-summary-list__value">
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+                  {% endfor %}
+              </dl>
 
- {{ govukSummaryList({
-         classes: 'govuk-!-margin-bottom-9',
-         rows: [
-           {
-             key: {
-               html: '<h2 class="govuk-heading-m">Activities</h2>'
-             },
-             value: {
-               text: ""
-             },
-             actions: {
-               items: [
-                 {
-                   href: "#",
-                   text: "Change",
-                   visuallyHiddenText: "name"
-                 }
-               ]
-             }
-           }]})}}
+            <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
 
-
-
-
-          {{ govukSummaryList({
-                  classes: 'govuk-!-margin-bottom-9',
-                  rows: [
-                    {
-                      key: {
-                        html: '<h2 class="govuk-heading-m">Assessments</h2>'
-                      },
-                      value: {
-                        text: ""
-                      },
-                      actions: {
-                        items: [
-                          {
-                            href: "#",
-                            text: "Change",
-                            visuallyHiddenText: "name"
-                          }
-                        ]
-                      }
-                    }]})}}
 
 
       {{ govukButton({

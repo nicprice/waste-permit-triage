@@ -30,48 +30,55 @@
 
 
 
-        {{ govukSummaryList({
-                classes: 'govuk-!-margin-bottom-9',
-                rows: [
-                  {
-                    key: {
-                    html: '<h2 class="govuk-heading-m">Facility type</h2>'
-                    },
-                    value: {
-                      text: ""
-                    },
-                    actions: {
-                      items: [
-                        {
-                          href: "#",
-                          text: "Change",
-                          visuallyHiddenText: "name"
-                        }
-                      ]
-                    }
-                  }]})}}
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <h2 class="govuk-heading-m">Facility type</h2>
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> facility type</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ data['type-facility'] }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+            </dd>
+          </div>
+          </dl>
 
-
- {{ govukSummaryList({
-         classes: 'govuk-!-margin-bottom-9',
-         rows: [
-           {
-             key: {
-               html: '<h2 class="govuk-heading-m">Activities</h2>'
-             },
-             value: {
-               text: ""
-             },
-             actions: {
-               items: [
-                 {
-                   href: "#",
-                   text: "Change",
-                   visuallyHiddenText: "name"
-                 }
-               ]
-             }
-           }]})}}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                <h2 class="govuk-heading-m">Activities</h2>
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+                  Change<span class="govuk-visually-hidden"> activity</span>
+                </a>
+              </dd>
+            </div>
+            {% for i in data['waste-activities'] %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ [i]}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+              </dd>
+              <dd class="govuk-summary-list__actions">
+              </dd>
+            </div>
+                {% endfor %}
+            </dl>
 
            {{ govukDetails({
              summaryText: "Read the guidance to ensure you select the correct types of waste:",
