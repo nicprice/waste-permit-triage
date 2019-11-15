@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/facility-type"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+      <form class="form" action="/activities-summary" method="post">
+
+<h1 class="govuk-heading-xl">Which types of waste do you transport?</h1>
+
+        {{ govukSummaryList({
+                classes: 'govuk-!-margin-bottom-9',
+                rows: [
+                  {
+                    key: {
+                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
+                    },
+                    value: {
+                      text: ""
+                    },
+                    actions: {
+                      items: [
+                        {
+                          href: "#",
+                          text: "Change",
+                          visuallyHiddenText: "name"
+                        }
+                      ]
+                    }
+                  }]})}}
+        {{ govukCheckboxes({
+      idPrefix: "waste",
+      name: "waste",
+      fieldset: {
+        legend: {
+          text: "",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "biological-treatment",
+          text: "Biological treatment of waste - not composting"
+        },
+        {
+          value: "chemical-treatment",
+          text: "Chemical treatment of waste"
+        },
+        {
+          value: "clinical-waste-transfer",
+          text: "Clinical waste transfer station"
+        },
+        {
+          value: "composting-facility",
+          text: "Composting facility"
+        },
+        {
+          value: "hazardous-waste-transfer",
+          text: "Hazardous waste transfer station"
+        },
+        {
+          value: "household-waste-amenity-hazardous",
+          text: "Household waste amenity site taking hazardous waste"
+        },
+        {
+          value: "household-waste-amenity-non-hazardous",
+          text: "Household waste amenity site taking non-hazardous waste only"
+        },
+        {
+          value: "household-commercial-industrial-transfer",
+          text: "Household, commercial and industrial waste transfer station"
+        },
+        {
+          value: "material-recycling-facility",
+          text: "Material recycling facility"
+        },
+        {
+          value: "metal-recycling-site-mixed",
+          text: "Metal recycling site - mixed metals"
+        },
+        {
+          value: "mobile-plant",
+          text: "Mobile plant – treatment of waste - not land spreading"
+        },
+        {
+          value: "physical-chemical-treatment",
+          text: "Physical and chemical treatment of waste"
+        },
+        {
+          value: "physical-treatment-hazardous",
+          text: "Physical treatment of hazardous waste"
+        },
+        {
+          value: "transfer-nonbiodegradable",
+          text: "Transfer station taking nonbiodegradable wastes"
+        },
+        {
+          value: "vehicle-dismantling",
+          text: "Vehicle dismantling - metal recycling site"
+        }
+      ]
+    }) }}
+
+<p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+{% endblock %}

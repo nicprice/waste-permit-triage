@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/activities-summary"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+<h1 class="govuk-heading-xl">Do you accept any of these types of waste?</h1>
+
+
+      <form class="form" action="/add-assessments" method="post">
+
+
+
+        {{ govukSummaryList({
+                classes: 'govuk-!-margin-bottom-9',
+                rows: [
+                  {
+                    key: {
+                    html: '<h2 class="govuk-heading-m">Facility type</h2>'
+                    },
+                    value: {
+                      text: ""
+                    },
+                    actions: {
+                      items: [
+                        {
+                          href: "#",
+                          text: "Change",
+                          visuallyHiddenText: "name"
+                        }
+                      ]
+                    }
+                  }]})}}
+
+
+ {{ govukSummaryList({
+         classes: 'govuk-!-margin-bottom-9',
+         rows: [
+           {
+             key: {
+               html: '<h2 class="govuk-heading-m">Activities</h2>'
+             },
+             value: {
+               text: ""
+             },
+             actions: {
+               items: [
+                 {
+                   href: "#",
+                   text: "Change",
+                   visuallyHiddenText: "name"
+                 }
+               ]
+             }
+           }]})}}
+
+           {{ govukDetails({
+             summaryText: "Read the guidance to ensure you select the correct types of waste:",
+             html: '<ul class="govuk-list govuk-list--bullet"><li><a href="#">Clinical waste (opens new tab)</a></li><li><a href="#">Combustible waste (opens new tab)</a></li><li><a href="#">Hazardous waste (opens new tab)"</a></li>'
+           }) }}
+
+           <p class="govuk-body">Based on the activities you have selected you accept the following:</p>
+
+        {{ govukCheckboxes({
+      idPrefix: "types-of-waste",
+      name: "types-of-waste",
+      fieldset: {
+        legend: {
+          text: "",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "hazardous-waste",
+          text: "Hazardous waste"
+        },
+        {
+          value: "clinical-waste",
+          text: "Clinical waste"
+        },
+        {
+          value: "combustible-waste",
+          text: "Combustible waste"
+        }
+      ]
+    }) }}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+{% endblock %}

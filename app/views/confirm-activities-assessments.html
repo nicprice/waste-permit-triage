@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/add-assessments"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+<h1 class="govuk-heading-xl">Add or remove assessments</h1>
+
+
+      <form class="form" action="/" method="post">
+
+        {{ govukSummaryList({
+                classes: 'govuk-!-margin-bottom-9',
+                rows: [
+                  {
+                    key: {
+                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
+                    },
+                    value: {
+                      text: ""
+                    },
+                    actions: {
+                      items: [
+                        {
+                          href: "#",
+                          text: "Change",
+                          visuallyHiddenText: "name"
+                        }
+                      ]
+                    }
+                  }]})}}
+
+
+
+ {{ govukSummaryList({
+         classes: 'govuk-!-margin-bottom-9',
+         rows: [
+           {
+             key: {
+               html: '<h2 class="govuk-heading-m">Activities</h2>'
+             },
+             value: {
+               text: ""
+             },
+             actions: {
+               items: [
+                 {
+                   href: "#",
+                   text: "Change",
+                   visuallyHiddenText: "name"
+                 }
+               ]
+             }
+           }]})}}
+
+
+
+
+          {{ govukSummaryList({
+                  classes: 'govuk-!-margin-bottom-9',
+                  rows: [
+                    {
+                      key: {
+                        html: '<h2 class="govuk-heading-m">Assessments</h2>'
+                      },
+                      value: {
+                        text: ""
+                      },
+                      actions: {
+                        items: [
+                          {
+                            href: "#",
+                            text: "Change",
+                            visuallyHiddenText: "name"
+                          }
+                        ]
+                      }
+                    }]})}}
+
+
+      {{ govukButton({
+        text: "Start application"
+      }) }}
+      </form>
+
+{% endblock %}

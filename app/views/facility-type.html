@@ -8,9 +8,13 @@
 
 {% block beforeContent %}
 {% include "includes/phase_banner_beta.html" %}
-{{backlink|safe}}
 
+  {{ govukBackLink({
+    text: "Back",
+    href: "/index"
+  }) }}
 {% endblock %}
+
 
 {% block content %}
 
@@ -18,7 +22,20 @@
   <div class="govuk-grid-column-two-thirds">
 
 
-      <form class="form" action="/url/of/next/page" method="post">
+      <form class="form" action="/add-activities" method="post">
+
+
+        {% set installationHtml %}
+        <p class="govuk-body">Facilities which carry out industrial processes like refineries, food and drink factories and intensive farming activities.</p>
+        {% endset -%}
+
+        {% set wasteOperationHtml %}
+        <p class="govuk-body">For example, transfer stations, water treatment, recycling and composting.</p>
+        {% endset -%}
+
+        {% set waterDisachargeHtml %}
+        <p class="govuk-body">For example, sewage, industrial or trade discharge, clearing water channels.</p>
+        {% endset -%}
 
         {{ govukRadios({
         idPrefix: "type-facility",
@@ -33,34 +50,52 @@
         items: [
           {
             value: "ground-water-activity",
-            text: "Groundwater activity"
+            text: "Groundwater activity",
+            checked: checked("type-facility", "Groundwater activity")
           },
           {
             value: "installation",
-            text: "Installation"
+            text: "Installation",
+            checked: checked("type-facility", "Installation"),
+            conditional: {
+        html: installationHtml
+      }
           },
           {
             value: "landfill-and-deposit-for-recovery",
-            text: "Landfill and deposit for recovery"
+            text: "Landfill and deposit for recovery",
+            checked: checked("type-facility", "Landfill and deposit for recovery")
           },
           {
             value: "medium-combustion-plant-or-specified-generator",
-            text: "Medium combustion plant or specified generator"
+            text: "Medium combustion plant or specified generator",
+            checked: checked("type-facility", "Medium combustion plant or specified generator")
           },
           {
             value: "mining-waste-operation",
-            text: "Mining waste operation"
+            text: "Mining waste operation",
+            checked: checked("type-facility", "Mining waste operation")
           },
           {
             value: "waste-operation",
-            text: "Waste operation"
+            text: "Waste operation",
+            checked: checked("type-facility", "Waste operation"),
+            conditional: {
+        html: wasteOperationHtml
+      }
           },
           {
             value: "water-discharge",
-            text: "Water discharge"
+            text: "Water discharge",
+            checked: checked("type-facility", "Water discharge"),
+            conditional: {
+            html: waterDisachargeHtml
+            }
           }
         ]
       }) }}
+
+      <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
 
       {{ govukButton({
         text: "Continue"

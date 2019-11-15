@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/types-of-waste"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+<h1 class="govuk-heading-xl">Add or remove assessments</h1>
+
+
+      <form class="form" action="/confirm-activities-assessments" method="post">
+
+
+
+        {{ govukSummaryList({
+                classes: 'govuk-!-margin-bottom-9',
+                rows: [
+                  {
+                    key: {
+                      html: '<h2 class="govuk-heading-m">Facility type</h2>'
+                    },
+                    value: {
+                      text: ""
+                    },
+                    actions: {
+                      items: [
+                        {
+                          href: "#",
+                          text: "Change",
+                          visuallyHiddenText: "name"
+                        }
+                      ]
+                    }
+                  }]})}}
+
+ {{ govukSummaryList({
+         classes: 'govuk-!-margin-bottom-9',
+         rows: [
+           {
+             key: {
+               html: '<h2 class="govuk-heading-m">Activities</h2>'
+             },
+             value: {
+               text: ""
+             },
+             actions: {
+               items: [
+                 {
+                   href: "#",
+                   text: "Change",
+                   visuallyHiddenText: "name"
+                 }
+               ]
+             }
+           }]})}}
+
+          <h2 class="govuk-heading-m">Assessments</h2>
+
+
+           <p class="govuk-body">Based on the activities you have selected, you are required to complete the following assessments:</p>
+
+
+          <p class="govuk-body">Choose any other assessments required for your application. These are identified by your risk assessment and our pre-application team.</p>
+
+        {{ govukCheckboxes({
+      idPrefix: "assessments",
+      name: "assessments",
+      fieldset: {
+        legend: {
+          text: "",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "dust-emissions",
+          text: "Dust and emissions management plan"
+        },
+        {
+          value: "habitats-assessment",
+          text: "Habitats assessment"
+        },
+        {
+          value: "noise-vibration",
+          text: "Noise and vibration emissions documents"
+        },
+        {
+          value: "pest-management",
+          text: "Pest management plan"
+        },
+        {
+          value: "waste-recovery",
+          text: "Waste recovery plan"
+        }
+      ]
+    }) }}
+
+    <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+{% endblock %}
