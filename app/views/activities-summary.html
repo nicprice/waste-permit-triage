@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 
+{% set listManage = true %}
 {% set title = "What type of facility do you want the permit for?" %}
 
 {% block pageTitle %}
@@ -19,6 +20,7 @@
 
 
 {% block content %}
+
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -60,9 +62,9 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="#">
+              <!--  <a class="govuk-link" href="#">
                   Change<span class="govuk-visually-hidden"> activity</span>
-                </a>
+                </a> -->
               </dd>
             </div>
             {% for i in data['waste-activities'] %}
@@ -73,107 +75,138 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
+                <!--    <input type="hidden" class="govuk-input" id="filetodelete" name="filetodelete" type="text" value="{{i}}"> -->
+                <a href="#"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span>
+                </a>
               </dd>
             </div>
                 {% endfor %}
+
+
             </dl>
 
-<!--
-            {{ govukCheckboxes({
-          idPrefix: "waste-activities",
-          name: "waste-activities",
-          fieldset: {
-            legend: {
-              text: "",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--xl"
-            }
-          },
-          hint: {
-            text: "Select all that apply."
-          },
-          items: [
-            {
-              value: "Biological treatment of waste - not composting",
-              text: "Biological treatment of waste - not composting",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Chemical treatment of waste",
-              text: "Chemical treatment of waste",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Clinical waste transfer station",
-              text: "Clinical waste transfer station",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Composting facility",
-              text: "Composting facility",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Hazardous waste transfer station",
-              text: "Hazardous waste transfer station",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Household waste amenity site taking hazardous waste",
-              text: "Household waste amenity site taking hazardous waste",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Household waste amenity site taking non-hazardous waste only",
-              text: "Household waste amenity site taking non-hazardous waste only",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Household, commercial and industrial waste transfer station",
-              text: "Household, commercial and industrial waste transfer station",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Material recycling facility",
-              text: "Material recycling facility",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Metal recycling site - mixed metals",
-              text: "Metal recycling site - mixed metals",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Mobile plant – treatment of waste - not land spreading",
-              text: "Mobile plant – treatment of waste - not land spreading",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Physical and chemical treatment of waste",
-              text: "Physical and chemical treatment of waste",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Physical treatment of hazardous waste",
-              text: "Physical treatment of hazardous waste",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Transfer station taking nonbiodegradable wastes",
-              text: "Transfer station taking nonbiodegradable wastes",
-              checked: checked("waste-activities", "activities")
-            },
-            {
-              value: "Vehicle dismantling - metal recycling site",
-              text: "Vehicle dismantling - metal recycling site",
-              checked: checked("waste-activities", "activities")
-            }
-          ]
-        }) }}
--->
+
+{% set anotherActivityHtml %}
+{{ govukCheckboxes({
+idPrefix: "waste-activities-another",
+name: "waste-activities-another",
+fieldset: {
+legend: {
+  text: "",
+  isPageHeading: false,
+  classes: "govuk-fieldset__legend--xl"
+}
+},
+items: [
+{
+  value: "Biological treatment of waste - not composting",
+  text: "Biological treatment of waste - not composting",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Chemical treatment of waste",
+  text: "Chemical treatment of waste",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Clinical waste transfer station",
+  text: "Clinical waste transfer station",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Composting facility",
+  text: "Composting facility",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Hazardous waste transfer station",
+  text: "Hazardous waste transfer station",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Household waste amenity site taking hazardous waste",
+  text: "Household waste amenity site taking hazardous waste",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Household waste amenity site taking non-hazardous waste only",
+  text: "Household waste amenity site taking non-hazardous waste only",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Household, commercial and industrial waste transfer station",
+  text: "Household, commercial and industrial waste transfer station",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Material recycling facility",
+  text: "Material recycling facility",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Metal recycling site - mixed metals",
+  text: "Metal recycling site - mixed metals",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Mobile plant – treatment of waste - not land spreading",
+  text: "Mobile plant – treatment of waste - not land spreading",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Physical and chemical treatment of waste",
+  text: "Physical and chemical treatment of waste",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Physical treatment of hazardous waste",
+  text: "Physical treatment of hazardous waste",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Transfer station taking nonbiodegradable wastes",
+  text: "Transfer station taking nonbiodegradable wastes",
+  checked: checked("waste-activities", "activities")
+},
+{
+  value: "Vehicle dismantling - metal recycling site",
+  text: "Vehicle dismantling - metal recycling site",
+  checked: checked("waste-activities", "activities")
+}
+]
+}) }}
+{% endset -%}
+
+
+{{ govukCheckboxes({
+idPrefix: "another-activity",
+name: "another-activity",
+fieldset: {
+legend: {
+text: "",
+isPageHeading: false,
+classes: "govuk-fieldset__legend--xl"
+}
+},
+
+items: [
+{
+value: "true",
+text: "Add another activity",
+conditional: {
+html: anotherActivityHtml
+}
+}
+]
+}) }}
+
+<br>
+
       {{ govukButton({
         text: "Continue"
       }) }}
+
       </form>
+
 
 {% endblock %}
