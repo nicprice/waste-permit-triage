@@ -12,7 +12,7 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/add-assessments"
+    href: "/types-of-waste"
   }) }}
 {% endblock %}
 
@@ -23,10 +23,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-xl">Confirm activities and assessments</h1>
+<h1 class="govuk-heading-xl">Add or remove assessments</h1>
 
 
-      <form class="form" action="/" method="post">
+      <form class="form" action="/confirm-activities-assessments" method="post">
+
 
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
@@ -36,7 +37,7 @@
             <dd class="govuk-summary-list__value">
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/facility-type">
+              <a class="govuk-link" href="#">
                 Change<span class="govuk-visually-hidden"> facility type</span>
               </a>
             </dd>
@@ -48,7 +49,6 @@
             <dd class="govuk-summary-list__value">
             </dd>
             <dd class="govuk-summary-list__actions">
-              <p class="govuk-body">£xxxx</p>
             </dd>
           </div>
           </dl>
@@ -61,7 +61,7 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/activities-summary">
+                <a class="govuk-link" href="#">
                   Change<span class="govuk-visually-hidden"> activity</span>
                 </a>
               </dd>
@@ -74,45 +74,65 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <p class="govuk-body">£xxxx</p>
               </dd>
             </div>
                 {% endfor %}
             </dl>
 
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  <h2 class="govuk-heading-m">Assessments</h2>
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="/add-assessments">
-                    Change<span class="govuk-visually-hidden"> assessment</span>
-                  </a>
-                </dd>
-              </div>
-              {% for i in data['waste-assessments'] %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  {{ [i]}}
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <p class="govuk-body">£xxxx</p>
-                </dd>
-              </div>
-                  {% endfor %}
-              </dl>
-
-            <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
+          <h2 class="govuk-heading-m">Assessments</h2>
 
 
+           <p class="govuk-body">Based on the activities you have selected, you are required to complete the following assessments:</p>
+
+
+          <p class="govuk-body">Choose any other assessments required for your application. These are identified by your risk assessment and our pre-application team.</p>
+
+        {{ govukCheckboxes({
+      idPrefix: "waste-assessments",
+      name: "waste-assessments",
+      fieldset: {
+        legend: {
+          text: "",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "Dust and emissions management plan",
+          text: "Dust and emissions management plan",
+          checked: checked("waste-assessments", "assessments")
+        },
+        {
+          value: "Habitats assessment",
+          text: "Habitats assessment",
+          checked: checked("waste-assessments", "assessments")
+        },
+        {
+          value: "Noise and vibration emissions documents",
+          text: "Noise and vibration emissions documents",
+          checked: checked("waste-assessments", "assessments")
+        },
+        {
+          value: "Pest management plan",
+          text: "Pest management plan",
+          checked: checked("waste-assessments", "assessments")
+        },
+        {
+          value: "Waste recovery plan",
+          text: "Waste recovery plan",
+          checked: checked("waste-assessments", "assessments")
+        }
+      ]
+    }) }}
+
+    <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
 
       {{ govukButton({
-        text: "Start application"
+        text: "Continue"
       }) }}
       </form>
 

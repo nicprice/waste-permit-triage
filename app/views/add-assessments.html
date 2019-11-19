@@ -23,111 +23,92 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-xl">Add or remove assessments</h1>
 
 
       <form class="form" action="/confirm-activities-assessments" method="post">
 
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">
+                  What assessments are needed for your application?
+                </h1>
+              </legend>
+              <p class="govuk-body">These are identified by your risk assessment and our pre-application team.</p>
+              {% set wasteActivities = data['waste-activities'] %}
+              {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1) or (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
+                 <p class="govuk-body">Based on the activities you have selected, you are required to complete the following assessments:</p>
+             {% endif %}
 
-        <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              <h2 class="govuk-heading-m">Facility type</h2>
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">
-                Change<span class="govuk-visually-hidden"> facility type</span>
-              </a>
-            </dd>
+              {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1)%}
+              <p class="govuk-body govuk-!-font-weight-bold">Dust and emissions management plan</p>
+              {% endif %}
+
+              {% if (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
+              <p class="govuk-body govuk-!-font-weight-bold">Habitats assessment</p>
+              {% endif %}
+
+              <span id="waste-hint" class="govuk-hint">
+                Select any others that apply.
+              </span>
+
+              <div class="govuk-checkboxes">
+                {% if (wasteActivities.indexOf("Hazardous waste transfer station") == -1)%}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste" name="waste-assessments" type="checkbox" value="Dust and emissions management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste">
+                    Dust and emissions management plan
+                  </label>
+                </div>
+                {% endif %}
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-2" name="waste-assessments" type="checkbox" value="Fire prevention plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                    Fire prevention plan
+                  </label>
+                </div>
+
+                {% if (wasteActivities.indexOf("Clinical waste transfer station") == -1)%}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-3" name="waste-assessments" type="checkbox" value="Habitats assessment">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                    Habitats assessment
+                  </label>
+                </div>
+                {% endif %}
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-4" name="waste-assessments" type="checkbox" value="Noise and vibration emissions documents">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+                    Noise and vibration emissions documents
+                  </label>
+                </div>
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-5" name="waste-assessments" type="checkbox" value="Odour management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-5">
+                    Odour management plan
+                  </label>
+                </div>
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-6" name="waste-assessments" type="checkbox" value="Pest management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+                    Pest management plan
+                  </label>
+                </div>
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-7" name="waste-assessments" type="checkbox" value="Waste recovery plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-7">
+                    Waste recovery plan
+                  </label>
+                </div>
+              </div>
+            </fieldset>
           </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ data['type-facility'] }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-            </dd>
-          </div>
-          </dl>
 
-          <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                <h2 class="govuk-heading-m">Activities</h2>
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="#">
-                  Change<span class="govuk-visually-hidden"> activity</span>
-                </a>
-              </dd>
-            </div>
-            {% for i in data['waste-activities'] %}
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ [i]}}
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-              </dd>
-            </div>
-                {% endfor %}
-            </dl>
-
-          <h2 class="govuk-heading-m">Assessments</h2>
-
-
-           <p class="govuk-body">Based on the activities you have selected, you are required to complete the following assessments:</p>
-
-
-          <p class="govuk-body">Choose any other assessments required for your application. These are identified by your risk assessment and our pre-application team.</p>
-
-        {{ govukCheckboxes({
-      idPrefix: "waste-assessments",
-      name: "waste-assessments",
-      fieldset: {
-        legend: {
-          text: "",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--xl"
-        }
-      },
-      hint: {
-        text: "Select all that apply."
-      },
-      items: [
-        {
-          value: "Dust and emissions management plan",
-          text: "Dust and emissions management plan",
-          checked: checked("waste-assessments", "assessments")
-        },
-        {
-          value: "Habitats assessment",
-          text: "Habitats assessment",
-          checked: checked("waste-assessments", "assessments")
-        },
-        {
-          value: "Noise and vibration emissions documents",
-          text: "Noise and vibration emissions documents",
-          checked: checked("waste-assessments", "assessments")
-        },
-        {
-          value: "Pest management plan",
-          text: "Pest management plan",
-          checked: checked("waste-assessments", "assessments")
-        },
-        {
-          value: "Waste recovery plan",
-          text: "Waste recovery plan",
-          checked: checked("waste-assessments", "assessments")
-        }
-      ]
-    }) }}
 
     <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
 

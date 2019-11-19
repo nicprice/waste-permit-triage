@@ -24,98 +24,65 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-xl">Do you accept any of these types of waste?</h1>
 
 
       <form class="form" action="/add-assessments" method="post">
 
 
 
-        <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              <h2 class="govuk-heading-m">Facility type</h2>
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">
-                Change<span class="govuk-visually-hidden"> facility type</span>
-              </a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ data['type-facility'] }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-            </dd>
-          </div>
-          </dl>
 
-          <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                <h2 class="govuk-heading-m">Activities</h2>
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="#">
-                  Change<span class="govuk-visually-hidden"> activity</span>
-                </a>
-              </dd>
-            </div>
-            {% for i in data['waste-activities'] %}
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ [i]}}
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-              </dd>
-            </div>
-                {% endfor %}
-            </dl>
 
-           {{ govukDetails({
-             summaryText: "Read the guidance to ensure you select the correct types of waste:",
-             html: '<ul class="govuk-list govuk-list--bullet"><li><a href="#">Clinical waste (opens new tab)</a></li><li><a href="#">Combustible waste (opens new tab)</a></li><li><a href="#">Hazardous waste (opens new tab)"</a></li>'
-           }) }}
 
-           <p class="govuk-body">Based on the activities you have selected you accept the following:</p>
-
-        {{ govukCheckboxes({
-      idPrefix: "types-of-waste",
-      name: "types-of-waste",
-      fieldset: {
-        legend: {
-          text: "",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--xl"
-        }
-      },
-      hint: {
-        text: "Select all that apply."
-      },
-      items: [
-        {
-          value: "hazardous-waste",
-          text: "Hazardous waste"
-        },
-        {
-          value: "clinical-waste",
-          text: "Clinical waste"
-        },
-        {
-          value: "combustible-waste",
-          text: "Combustible waste"
-        }
-      ]
-    }) }}
+           <div class="govuk-form-group">
+             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+               <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                 <h1 class="govuk-fieldset__heading">
+                   Which types of waste do you transport?
+                 </h1>
+               </legend>
+               {{ govukDetails({
+                 summaryText: "Ensure you select the correct types of waste:",
+                 html: '<ul class="govuk-list govuk-list--bullet"><li><a href="#">Clinical waste (opens new tab)</a></li><li><a href="#">Combustible waste (opens new tab)</a></li><li><a href="#">Hazardous waste (opens new tab)"</a></li>'
+               }) }}
+               {% set wasteActivities = data['waste-activities'] %}
+              {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1) or (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
+               <p class="govuk-body">Based on the activities you have selected you accept the following:</p>
+               {% endif %}
+               {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1)%}
+               <p class="govuk-body govuk-!-font-weight-bold">Hazardous Waste</p>
+               {% endif %}
+               {% if (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
+               <p class="govuk-body govuk-!-font-weight-bold">Clinical Waste</p>
+               {% endif %}
+               <span id="waste-hint" class="govuk-hint">
+                 Select any that apply.
+               </span>
+               <div class="govuk-checkboxes">
+                 {% if (wasteActivities.indexOf("Hazardous waste transfer station") == -1)%}
+                 <div class="govuk-checkboxes__item">
+                   <input class="govuk-checkboxes__input" id="waste" name="hazardous-waste" type="checkbox" value="hazardous-waste">
+                   <label class="govuk-label govuk-checkboxes__label" for="waste">
+                     Hazardous waste
+                   </label>
+                 </div>
+                 {% endif %}
+                 {% if (wasteActivities.indexOf("Clinical waste transfer station") == -1)%}
+                 <div class="govuk-checkboxes__item">
+                   <input class="govuk-checkboxes__input" id="waste-2" name="clinical-waste" type="checkbox" value="clinical-waste">
+                   <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                     Clinical waste
+                   </label>
+                 </div>
+                 {% endif %}
+                 <div class="govuk-checkboxes__item">
+                   <input class="govuk-checkboxes__input" id="waste-3" name="combustible-waste" type="checkbox" value="combustible-waste">
+                   <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                     Combustible waste
+                   </label>
+                 </div>
+               </div>
+             </fieldset>
+           </div>
 
 
       {{ govukButton({

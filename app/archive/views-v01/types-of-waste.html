@@ -12,7 +12,7 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/add-assessments"
+    href: "/activities-summary"
   }) }}
 {% endblock %}
 
@@ -20,13 +20,16 @@
 
 {% block content %}
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-<h1 class="govuk-heading-xl">Confirm activities and assessments</h1>
+<h1 class="govuk-heading-xl">Do you accept any of these types of waste?</h1>
 
 
-      <form class="form" action="/" method="post">
+      <form class="form" action="/add-assessments" method="post">
+
+
 
         <dl class="govuk-summary-list">
           <div class="govuk-summary-list__row">
@@ -36,7 +39,7 @@
             <dd class="govuk-summary-list__value">
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/facility-type">
+              <a class="govuk-link" href="#">
                 Change<span class="govuk-visually-hidden"> facility type</span>
               </a>
             </dd>
@@ -48,7 +51,6 @@
             <dd class="govuk-summary-list__value">
             </dd>
             <dd class="govuk-summary-list__actions">
-              <p class="govuk-body">£xxxx</p>
             </dd>
           </div>
           </dl>
@@ -61,7 +63,7 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/activities-summary">
+                <a class="govuk-link" href="#">
                   Change<span class="govuk-visually-hidden"> activity</span>
                 </a>
               </dd>
@@ -74,45 +76,50 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <p class="govuk-body">£xxxx</p>
               </dd>
             </div>
                 {% endfor %}
             </dl>
 
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  <h2 class="govuk-heading-m">Assessments</h2>
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="/add-assessments">
-                    Change<span class="govuk-visually-hidden"> assessment</span>
-                  </a>
-                </dd>
-              </div>
-              {% for i in data['waste-assessments'] %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  {{ [i]}}
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <p class="govuk-body">£xxxx</p>
-                </dd>
-              </div>
-                  {% endfor %}
-              </dl>
+           {{ govukDetails({
+             summaryText: "Read the guidance to ensure you select the correct types of waste:",
+             html: '<ul class="govuk-list govuk-list--bullet"><li><a href="#">Clinical waste (opens new tab)</a></li><li><a href="#">Combustible waste (opens new tab)</a></li><li><a href="#">Hazardous waste (opens new tab)"</a></li>'
+           }) }}
 
-            <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
+           <p class="govuk-body">Based on the activities you have selected you accept the following:</p>
 
+        {{ govukCheckboxes({
+      idPrefix: "types-of-waste",
+      name: "types-of-waste",
+      fieldset: {
+        legend: {
+          text: "",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "hazardous-waste",
+          text: "Hazardous waste"
+        },
+        {
+          value: "clinical-waste",
+          text: "Clinical waste"
+        },
+        {
+          value: "combustible-waste",
+          text: "Combustible waste"
+        }
+      ]
+    }) }}
 
 
       {{ govukButton({
-        text: "Start application"
+        text: "Continue"
       }) }}
       </form>
 

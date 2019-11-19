@@ -26,20 +26,46 @@
 
       <form class="form" action="/activities-summary" method="post">
 
+<h1 class="govuk-heading-xl">Add activities to the permit</h1>
+
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      <h2 class="govuk-heading-m">Facility type</h2>
+    </dt>
+    <dd class="govuk-summary-list__value">
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> facility type</span>
+      </a>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      {{ data['type-facility'] }}
+    </dt>
+    <dd class="govuk-summary-list__value">
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+  </dl>
+
 
         {{ govukCheckboxes({
       idPrefix: "waste-activities",
       name: "waste-activities",
       fieldset: {
         legend: {
-          text: "Add activities to the permit",
+          text: "",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--xl"
         }
       },
       hint: {
-        html: "<p class='govuk-body'>For a waste operation facility you can select activity types:</p>
-        Select all that apply."
+        text: "Select all that apply."
       },
       items: [
         {

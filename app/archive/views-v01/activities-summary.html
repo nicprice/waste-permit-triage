@@ -21,12 +21,38 @@
 
 {% block content %}
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
 <h1 class="govuk-heading-xl">Add another activity or continue</h1>
 
       <form class="form" action="/types-of-waste" method="post">
+
+
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              <h2 class="govuk-heading-m">Facility type</h2>
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+                Change<span class="govuk-visually-hidden"> facility type</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ data['type-facility'] }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+            </dd>
+            <dd class="govuk-summary-list__actions">
+            </dd>
+          </div>
+          </dl>
 
           <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
@@ -44,13 +70,13 @@
             {% for i in data['waste-activities'] %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                {{[i]}}
+                {{ [i]}}
               </dt>
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
                 <!--    <input type="hidden" class="govuk-input" id="filetodelete" name="filetodelete" type="text" value="{{i}}"> -->
-                <a href="/activities-summary"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span>
+                <a href="#"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span>
                 </a>
               </dd>
             </div>
