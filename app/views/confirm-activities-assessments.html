@@ -28,88 +28,69 @@
 
       <form class="form" action="/" method="post">
 
-        <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              <h2 class="govuk-heading-m">Facility type</h2>
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="/facility-type">
-                Change<span class="govuk-visually-hidden"> facility type</span>
-              </a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ data['type-facility'] }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <p class="govuk-body">£xxxx</p>
-            </dd>
-          </div>
-          </dl>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Facility<a style="float:right;" class="govuk-link govuk-caption-m" href="/facility-type">
+            Change<span class="govuk-visually-hidden"> facility</span>
+          </a></h2></caption>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ data['type-facility'] }}</th>
+              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
+            </tr>
+          </tbody>
+        </table>
+<br>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Activities<a style="float:right;" class="govuk-link govuk-caption-m" href="/activities">
+            Change<span class="govuk-visually-hidden"> activities</span>
+          </a></h2></caption>
+          <tbody class="govuk-table__body">
+            {% for i in allactivities %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
+              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+<br>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Assessments<a style="float:right;" class="govuk-link govuk-caption-m" href="/add-assessments">
+            Change<span class="govuk-visually-hidden"> assessments</span>
+          </a></h2></caption>
+          <tbody class="govuk-table__body">
+            {% for i in allassessments %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
+              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
+            </tr>
+            {% endfor %}
+            {% for i in data['waste-assessments'] %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
+              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-          <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                <h2 class="govuk-heading-m">Activities</h2>
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/activities-summary">
-                  Change<span class="govuk-visually-hidden"> activity</span>
-                </a>
-              </dd>
-            </div>
-            {% for i in data['waste-activities'] %}
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ [i]}}
-              </dt>
-              <dd class="govuk-summary-list__value">
-              </dd>
-              <dd class="govuk-summary-list__actions">
-                <p class="govuk-body">£xxxx</p>
-              </dd>
-            </div>
-                {% endfor %}
-            </dl>
-
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  <h2 class="govuk-heading-m">Assessments</h2>
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="/add-assessments">
-                    Change<span class="govuk-visually-hidden"> assessment</span>
-                  </a>
-                </dd>
-              </div>
-              {% for i in data['waste-assessments'] %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                  {{ [i]}}
-                </dt>
-                <dd class="govuk-summary-list__value">
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <p class="govuk-body">£xxxx</p>
-                </dd>
-              </div>
-                  {% endfor %}
-              </dl>
+<br>
+              <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    <h2 class="govuk-heading-m">Total</h2>
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                  <p  class="govuk-body govuk-!-font-weight-bold">£xxxx</p>
+                  </dd>
+                </div>
+                </dl>
 
             <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
 
-
+{{allassessments}}
 
       {{ govukButton({
         text: "Start application"

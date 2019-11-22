@@ -13,7 +13,7 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/facility-type"
+    href: "/add-activities"
   }) }}
 {% endblock %}
 
@@ -28,6 +28,25 @@
 
       <form class="form" action="/types-of-waste" method="post">
 
+<table class="govuk-table">
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header govuk-!-width-three-quarters">{{data['type-facility']}}</th>
+      <!--<td class="govuk-table__cell">{{data['type-facility']}}</td>-->
+      <td class="govuk-table__cell govuk-!-width-one-quarter govuk-table__header--numeric"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+    </tr>
+    {% for i in data['waste-activities'] %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">{{[i]}}</th>
+      <!--<td class="govuk-table__cell"></td>-->
+      <td class="govuk-table__cell govuk-table__header--numeric"><a href="/activities-summary"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<!--
           <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
@@ -38,7 +57,7 @@
               <dd class="govuk-summary-list__actions">
               <!--  <a class="govuk-link" href="#">
                   Change<span class="govuk-visually-hidden"> activity</span>
-                </a> -->
+                </a> --><!--
               </dd>
             </div>
             {% for i in data['waste-activities'] %}
@@ -49,15 +68,16 @@
               <dd class="govuk-summary-list__value">
               </dd>
               <dd class="govuk-summary-list__actions">
-                <!--    <input type="hidden" class="govuk-input" id="filetodelete" name="filetodelete" type="text" value="{{i}}"> -->
-                <a href="/activities-summary"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span>
+                <!--    <input type="hidden" class="govuk-input" id="filetodelete" name="filetodelete" type="text" value="{{i}}"> --><!--
+                <a href="/facility-type"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span>
                 </a>
               </dd>
             </div>
                 {% endfor %}
-
-
             </dl>
+
+-->
+
 
 
 {% set anotherActivityHtml %}

@@ -12,7 +12,7 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/activities"
+    href: "/activities-summary"
   }) }}
 {% endblock %}
 
@@ -27,68 +27,59 @@
 
 
       <form class="form" action="/add-assessments" method="post">
+
+
+
+
+
            <div class="govuk-form-group">
              <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                  <h1 class="govuk-fieldset__heading">
-                   Do you accept any of these types of waste?
+                   Which types of waste do you transport?
                  </h1>
                </legend>
 
                <table class="govuk-table">
                  <tbody class="govuk-table__body">
                    <tr class="govuk-table__row">
-                     <th scope="row" class="govuk-table__header">Facility</th>
-                     <td class="govuk-table__cell">{{data['type-facility']}}</td>
-                     <td class="govuk-table__cell"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                     <th scope="row" class="govuk-table__header govuk-!-width-three-quarters">{{data['type-facility']}}</th>
+                     <!--<td class="govuk-table__cell">{{data['type-facility']}}</td>-->
+                     <td class="govuk-table__cell govuk-!-width-one-quarter govuk-table__header--numeric"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
                    </tr>
-                   {% for i in allactivities %}
+                   {% for i in data['waste-activities'] %}
                    <tr class="govuk-table__row">
-                     <th scope="row" class="govuk-table__header">Activity {{loop.index}}</th>
-                     <td class="govuk-table__cell">{{[i]}}</td>
-                     <td class="govuk-table__cell"><a href="/activities" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                     <th scope="row" class="govuk-table__header">{{[i]}}</th>
+                     <!--<td class="govuk-table__cell"></td>-->
+                     <td class="govuk-table__cell govuk-table__header--numeric"><a href="/activities-summary" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
                    </tr>
                    {% endfor %}
                  </tbody>
                </table>
 
-               {% set wasteActivities = allactivities %}
-               {% if 'Hazardous waste transfer station' in wasteActivities or
-               'Household waste amenity site taking hazardous waste' in wasteActivities or
-               'Physical treatment of hazardous waste' in wasteActivities or
-               'Clinical waste transfer station' in wasteActivities
-               %}
+               {% set wasteActivities = data['waste-activities'] %}
+              {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1) or (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
                <p class="govuk-body">Based on the activities you have selected you accept the following:</p>
                {% endif %}
-
-               {% if 'Hazardous waste transfer station' in wasteActivities or
-               'Household waste amenity site taking hazardous waste' in wasteActivities or
-               'Physical treatment of hazardous waste' in wasteActivities %}
+               {% if (wasteActivities.indexOf("Hazardous waste transfer station") > -1)%}
                <p class="govuk-body govuk-!-font-weight-bold">Hazardous Waste</p>
                {% endif %}
-
-               {% if 'Clinical waste transfer station' in wasteActivities %}
+               {% if (wasteActivities.indexOf("Clinical waste transfer station") > -1)%}
                <p class="govuk-body govuk-!-font-weight-bold">Clinical Waste</p>
                {% endif %}
-
                <span id="waste-hint" class="govuk-hint">
                  Select any others that apply
                </span>
                <div class="govuk-checkboxes">
-
-                  {% if 'Hazardous waste transfer station'in wasteActivities %}
-                  {% elseif 'Household waste amenity site taking hazardous waste' in wasteActivities %}
-                  {% elseif 'Physical treatment of hazardous waste' in wasteActivities %}
-                  {% else %}
-                   <div class="govuk-checkboxes__item">
-                     <input class="govuk-checkboxes__input" id="waste" name="hazardous-waste" type="checkbox" value="hazardous-waste">
-                     <label class="govuk-label govuk-checkboxes__label" for="waste">
-                       Hazardous waste
-                     </label>
-                   </div>
+                 {% if (wasteActivities.indexOf("Hazardous waste transfer station") == -1)%}
+                 <div class="govuk-checkboxes__item">
+                   <input class="govuk-checkboxes__input" id="waste" name="hazardous-waste" type="checkbox" value="hazardous-waste">
+                   <label class="govuk-label govuk-checkboxes__label" for="waste">
+                     Hazardous waste
+                   </label>
+                 </div>
                  {% endif %}
-
-                 {% if 'Clinical waste transfer station' not in wasteActivities %}
+                 {% if (wasteActivities.indexOf("Clinical waste transfer station") == -1)%}
                  <div class="govuk-checkboxes__item">
                    <input class="govuk-checkboxes__input" id="waste-2" name="clinical-waste" type="checkbox" value="clinical-waste">
                    <label class="govuk-label govuk-checkboxes__label" for="waste-2">
@@ -96,7 +87,6 @@
                    </label>
                  </div>
                  {% endif %}
-
                  <div class="govuk-checkboxes__item">
                    <input class="govuk-checkboxes__input" id="waste-3" name="combustible-waste" type="checkbox" value="combustible-waste">
                    <label class="govuk-label govuk-checkboxes__label" for="waste-3">
