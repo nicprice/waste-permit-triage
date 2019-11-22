@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% set listManage = true %}
+{% set listadd = true %}
+{% set title = "What activities are needed for your permit?" %}
+{% block pageTitle %} {{title}} - GOV.UK {% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html"%}
+{{ govukBackLink({ text: "Back", href: "/facility-type" }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">What activities are needed for your permit?</h1>
+
+    <form id="myform" class="form" action="/types-of-waste" method="post">
+
+
+      {% set wasteActivities = allactivities %}
+
+
+
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-heading-m">Your activities list</caption>
+        <tbody class="govuk-table__body">
+           {% set wasteActivities = allactivities %}
+          {% if ((wasteActivities).length) %}
+        {% for i in allactivities %}
+        <tr class="govuk-table__row" style="color:#00703c;">
+          <td scope="row" class="govuk-table__header" >
+          <svg class="moj-banner__icon" fill="#00703c" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25">
+          <path style="color:#00703c;" d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z" /> </svg></td> <td class="govuk-table__cell govuk-!-font-weight-bold">{{[i]}} <span class="govuk-visually-hidden">has been added to your activities list</span></td>
+          <td class="govuk-table__cell"><a href="/sandbox/activities"  onclick="delete_element('{{i}}')" class="govuk-link">Remove<span class="govuk-visually-hidden">{{[i]}}</span></td>
+        </tr>
+        {% endfor %}
+          {% else %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">No activities added</th>
+        </tr>
+            {% endif %}
+          </tbody>
+        </table>
+
+<br><br>
+
+        <table class="govuk-table">
+<!--<caption class="govuk-table__caption">Activies available for {{data['facility-type']}}</caption>-->
+  <span id="new-waste-activities-hint" class="govuk-hint">
+    Add all that apply
+  </span>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header" style="border:none;">Activity</th>
+      <th scope="col" class="govuk-table__header" style="border:none;">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Biological treatment of waste - not composting</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Biological treatment of waste - not composting')" class="govuk-link">Add<span class="govuk-visually-hidden"> Biological treatment of waste - not composting to your activities list</span></a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Chemical treatment of waste</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Chemical treatment of waste')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Clinical waste transfer station</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Clinical waste transfer station')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Composting facility</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Composting facility')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Hazardous waste transfer station</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Hazardous waste transfer station')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Household waste amenity site taking hazardous waste</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Household waste amenity site taking hazardous waste')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Household waste amenity site taking non-hazardous waste only</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Household waste amenity site taking non-hazardous waste only')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Household, commercial and industrial waste transfer station</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Household, commercial and industrial waste transfer station')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Material recycling facility</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Material recycling facility')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Metal recycling site - mixed metals</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Metal recycling site - mixed metals')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Mobile plant – treatment of waste - not land spreading</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Mobile plant – treatment of waste - not land spreading')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Physical and chemical treatment of waste</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Physical and chemical treatment of waste')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Physical treatment of hazardous waste</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Physical treatment of hazardous waste')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Transfer station taking nonbiodegradable wastes</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Transfer station taking nonbiodegradable wastes')" class="govuk-link">Add</a></td>
+    </tr>
+    <tr class="govuk-table__row">
+      <td scope="row" class="govuk-table__cell" style="border:none;">Vehicle dismantling - metal recycling site</td>
+      <td class="govuk-table__cell" style="border:none;"><a href="/sandbox/activities"  onclick="add_element('Vehicle dismantling - metal recycling site')" class="govuk-link">Add</a></td>
+    </tr>
+  </tbody>
+</table>
+               {{ govukButton({ text: "Continue" }) }}
+
+    </form>
+
+    {% endblock %}

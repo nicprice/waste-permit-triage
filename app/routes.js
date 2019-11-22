@@ -19,6 +19,15 @@ router.get('/activities', function(req, res) {
     res.render('activities', { 'allactivities' : activities });
 });
 
+
+
+
+
+
+
+
+
+
 //remove activity from activities list
 router.post("/remove:activity", function (req, res) {
     let activity = req.params.activity
@@ -69,6 +78,27 @@ if (firePrevention.indexOf("combustible-waste") || activities.indexOf("Household
 router.get('/confirm-activities-assessments', function(req, res) {
     res.render('confirm-activities-assessments', { 'allactivities' : activities });
 });
+
+
+
+/*
+//sandbox routing
+//pass activities data to the activities page
+router.get('/sandbox/activities', function(req, res) {
+    res.render('sandbox/activities', { 'allactivities' : activities });
+});
+
+//add activity from activities list
+router.post("/add:activity", function (req, res) {
+    let activity = req.params.activity
+    activities.push(activity);
+console.log(activities);
+    res.redirect('activities');
+
+})
+*/
+
+
 
 
 module.exports = router
