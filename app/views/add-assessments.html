@@ -20,10 +20,13 @@
 
 {% block content %}
 
+
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-      <form class="form" action="/confirm-activities-assessments" method="post">
+      <form method="post" autocomplete="off" novalidate >
 
           <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
@@ -52,15 +55,15 @@
 
               <p class="govuk-body">These are identified by your risk assessment and our pre-application team.</p>
               {% set wasteActivities = allactivities %}
-              {% set firePrevention = data['combustible-waste'] %}
+              {% set wasteType = data['waste-type'] or []%}
               {% if 'Household waste amenity site taking hazardous waste' in wasteActivities or
               'Clinical waste transfer station' in wasteActivities or
-              (firePrevention).length
+              'combustible-waste' in wasteType
               %}
                  <p class="govuk-body">Based on the activities you have selected, you are required to complete the following assessments:</p>
               {% endif %}
 
-              {% if (firePrevention).length or
+              {% if 'combustible-waste' in wasteType or
                 'Household waste amenity site taking hazardous waste' in wasteActivities or
                 'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
                 'Household, commercial and industrial waste transfer station' in wasteActivities
@@ -90,10 +93,11 @@
                   </label>
                 </div>
 
-                {% if ((firePrevention).length > 0) %}
-                {% elseif 'Household waste amenity site taking hazardous waste' in wasteActivities %}
-                {% elseif 'Household waste amenity site taking non-hazardous waste only' in wasteActivities %}
-                {% elseif 'Household, commercial and industrial waste transfer station' in wasteActivities %}
+              {% if 'combustible-waste' in wasteType or
+                  'Household waste amenity site taking hazardous waste' in wasteActivities or
+                  'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                  'Household, commercial and industrial waste transfer station' in wasteActivities
+                  %}{% else %}
                 <div class="govuk-checkboxes__item">
                   <input class="govuk-checkboxes__input" id="waste-2" name="waste-assessments" type="checkbox" value="Fire prevention plan">
                   <label class="govuk-label govuk-checkboxes__label" for="waste-2">
@@ -116,11 +120,12 @@
                   </label>
                 </div>
 
-                {% if 'Hazardous waste transfer station'in wasteActivities %}
-                {% elseif 'Biological treatment of waste - not composting' in wasteActivities %}
-                {% elseif 'Composting facility' in wasteActivities %}
-                {% elseif 'Household waste amenity site taking non-hazardous waste only' in wasteActivities %}
-                {% elseif 'Household, commercial and industrial waste transfer station' in wasteActivities %}
+                {% if 'Household waste amenity site taking hazardous waste'in wasteActivities or
+                'Biological treatment of waste - not composting' in wasteActivities or
+                'Composting facility' in wasteActivities or
+                'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                'Household, commercial and industrial waste transfer station' in wasteActivities
+                 %}{% else %}
                 <div class="govuk-checkboxes__item">
                   <input class="govuk-checkboxes__input" id="waste-5" name="waste-assessments" type="checkbox" value="Odour management plan">
                   <label class="govuk-label govuk-checkboxes__label" for="waste-5">

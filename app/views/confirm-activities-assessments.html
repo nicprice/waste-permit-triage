@@ -20,13 +20,14 @@
 
 {% block content %}
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
 <h1 class="govuk-heading-xl">Confirm activities and assessments</h1>
 
 
-      <form class="form" action="/" method="post">
+      <form method="post" autocomplete="off" novalidate >
 
         <table class="govuk-table">
           <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Facility<a style="float:right;" class="govuk-link govuk-caption-m" href="/facility-type">
@@ -65,12 +66,6 @@
               <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
             </tr>
             {% endfor %}
-            {% for i in data['waste-assessments'] %}
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
-              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
-            </tr>
-            {% endfor %}
           </tbody>
         </table>
 
@@ -90,7 +85,7 @@
 
             <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
 
-{{allassessments}}
+
 
       {{ govukButton({
         text: "Start application"

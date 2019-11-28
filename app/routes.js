@@ -3,8 +3,35 @@ const router = express.Router()
 
 var activities = []
 var assessments = []
+
+// //////////////////////////////
+//INDEX PAGE - BLANKS VARIABLES USED IN THE PROTOTYPE
+router.get('/', function(req, res) {
+  var activities = []
+  var assessments = []
+    res.render('index');
+});
+
+
+// //////////////////////////////
+//FACILITY TYPE
+router.get('/facility-type', function(req, res) {
+    res.render('facility-type');
+});
+
+router.post('/facility-type', function (req, res) {
+    res.redirect('activities');
+});
+
+
+// //////////////////////////////
+//ACTIVITIES
+router.get('/activities', function(req, res) {
+    res.render('activities', { 'allactivities' : activities });
+});
+
 //add another activity to the activities list
-router.post('/types-of-waste', function (req, res) {
+router.post('/activities', function (req, res) {
   let newActivities = req.session.data['new-waste-activities']
   Array.prototype.push.apply(activities, newActivities);
   if (newActivities == undefined) {
@@ -12,21 +39,7 @@ router.post('/types-of-waste', function (req, res) {
   } else {
     res.redirect('activities');
   }
-})
-
-//pass activities data to the activities page
-router.get('/activities', function(req, res) {
-    res.render('activities', { 'allactivities' : activities });
 });
-
-
-
-
-
-
-
-
-
 
 //remove activity from activities list
 router.post("/remove:activity", function (req, res) {
@@ -34,51 +47,71 @@ router.post("/remove:activity", function (req, res) {
     var deleteName = activities.indexOf(activity);
     activities.splice(deleteName, 1);
     res.redirect('activities');
-})
+});
 
-//pass activities data to the types of waste page
+
+// //////////////////////////////
+//TYPES OF WASTE
 router.get('/types-of-waste', function(req, res) {
     res.render('types-of-waste', { 'allactivities' : activities });
 });
 
-//pass activities data to the assessments page
+router.post("/types-of-waste", function (req, res) {
+    res.redirect('add-assessments');
+});
+
+
+// //////////////////////////////
+//ASSESSMENTS
 router.get('/add-assessments', function(req, res) {
-    res.render('add-assessments', { 'allactivities' : activities });
+  let assessment = req.session.data['waste-assessments'] || []
+  var deleteName = assessments.indexOf(assessment);
+  assessments.splice(deleteName, 1);
+    res.render('add-assessments', { 'allactivities' : activities, 'allassessments' : assessments });
 });
 
 //add default assessments to the assessments list
-router.post('/confirm-activities-assessments', function (req, res) {
+router.post('/add-assessments', function (req, res) {
+let newAssessments = req.session.data['waste-assessments']
+let wasteType = req.session.data['waste-type'] || []
+Array.prototype.push.apply(assessments, newAssessments);
 
-var assessments = req.session.data['waste-assessments'] || []
-var firePrevention = req.session.data['combustible-waste'] || []
-
-for (var i = 0; i < activities.length; i++){
-  var activityItem = activities[i];
-  switch (activityItem) {
-     case 'Biological treatment of waste - not composting':
-     case 'Composting facility':
-     case 'Household waste amenity site taking hazardous waste':
-     case 'Household waste amenity site taking non-hazardous waste only':
-     case 'Household, commercial and industrial waste transfer station':
-       assessments.unshift("Odour management plan");
-     break;
-     default:
-     break;
-   }
+if ((activities.indexOf('Biological treatment of waste - not composting') > -1 || activities.indexOf('Composting facility') > -1 || activities.indexOf("Household waste amenity site taking hazardous waste") > -1 || activities.indexOf("Household waste amenity site taking non-hazardous waste only") > -1 || activities.indexOf("Household, commercial and industrial waste transfer station") > -1) && assessments.indexOf("Odour management plan") == -1)
+ {
+   assessments.unshift("Odour management plan");
  }
 
-if (firePrevention.indexOf("combustible-waste") || activities.indexOf("Household waste amenity site taking hazardous waste") || activities.indexOf("Household waste amenity site taking non-hazardous waste only") || activities.indexOf("Household, commercial and industrial waste transfer station") > -1)
-{
-    assessments.unshift("Fire prevention plan");
-}
-  res.redirect('confirm-activities-assessments');
-})
+ if ((wasteType.indexOf("combustible-waste") > -1 || activities.indexOf("Household waste amenity site taking hazardous waste") > -1 || activities.indexOf("Household waste amenity site taking non-hazardous waste only") > -1 || activities.indexOf("Household, commercial and industrial waste transfer station") > -1) && assessments.indexOf("Fire prevention plan") == -1)
+ {
+     assessments.unshift("Fire prevention plan");
+ }
 
-//pass activities data to the check your answers page
-router.get('/confirm-activities-assessments', function(req, res) {
-    res.render('confirm-activities-assessments', { 'allactivities' : activities });
+/*
+for (var i = 0; i < activities.length; i++){
+    var activityItem = activities[i];
+    switch (activityItem) {
+       case 'Biological treatment of waste - not composting':
+       case 'Composting facility':
+       case 'Household waste amenity site taking hazardous waste':
+       case 'Household waste amenity site taking non-hazardous waste only':
+       case 'Household, commercial and industrial waste transfer station':
+         assessments.unshift("Odour management plan");
+       break;
+       default:
+       break;
+     }
+   }
+
+*/
+  res.redirect('confirm-activities-assessments');
 });
 
+
+// //////////////////////////////
+//CONFIRMATION AND START APPLICATION
+router.get('/confirm-activities-assessments', function(req, res) {
+    res.render('confirm-activities-assessments', { 'allactivities' : activities, 'allassessments' : assessments });
+});
 
 
 /*
@@ -97,8 +130,6 @@ console.log(activities);
 
 })
 */
-
-
 
 
 module.exports = router

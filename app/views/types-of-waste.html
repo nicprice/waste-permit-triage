@@ -24,9 +24,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-
-
-      <form class="form" action="/add-assessments" method="post">
+      <form method="post" autocomplete="off" novalidate >
+    
            <div class="govuk-form-group">
              <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
@@ -76,12 +75,12 @@
                </span>
                <div class="govuk-checkboxes">
 
-                  {% if 'Hazardous waste transfer station'in wasteActivities %}
-                  {% elseif 'Household waste amenity site taking hazardous waste' in wasteActivities %}
-                  {% elseif 'Physical treatment of hazardous waste' in wasteActivities %}
+                  {% if 'Hazardous waste transfer station'in wasteActivities or
+                  'Household waste amenity site taking hazardous waste' in wasteActivities or
+                  'Physical treatment of hazardous waste' in wasteActivities %}
                   {% else %}
                    <div class="govuk-checkboxes__item">
-                     <input class="govuk-checkboxes__input" id="waste" name="hazardous-waste" type="checkbox" value="hazardous-waste">
+                     <input class="govuk-checkboxes__input" id="waste" name="waste-type" type="checkbox" value="hazardous-waste">
                      <label class="govuk-label govuk-checkboxes__label" for="waste">
                        Hazardous waste
                      </label>
@@ -90,7 +89,7 @@
 
                  {% if 'Clinical waste transfer station' not in wasteActivities %}
                  <div class="govuk-checkboxes__item">
-                   <input class="govuk-checkboxes__input" id="waste-2" name="clinical-waste" type="checkbox" value="clinical-waste">
+                   <input class="govuk-checkboxes__input" id="waste-2" name="waste-type" type="checkbox" value="clinical-waste">
                    <label class="govuk-label govuk-checkboxes__label" for="waste-2">
                      Clinical waste
                    </label>
@@ -98,7 +97,7 @@
                  {% endif %}
 
                  <div class="govuk-checkboxes__item">
-                   <input class="govuk-checkboxes__input" id="waste-3" name="combustible-waste" type="checkbox" value="combustible-waste">
+                   <input class="govuk-checkboxes__input" id="waste-3" name="waste-type" type="checkbox" value="combustible-waste">
                    <label class="govuk-label govuk-checkboxes__label" for="waste-3">
                      Combustible waste
                    </label>
