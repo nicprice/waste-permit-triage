@@ -12,7 +12,7 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/types-of-waste"
+    href: "/sandbox/types-of-waste"
   }) }}
 {% endblock %}
 
@@ -35,23 +35,6 @@
                   What assessments are needed for your permit?
                 </h1>
               </legend>
-
-              <table class="govuk-table">
-                <tbody class="govuk-table__body">
-                  <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Facility</th>
-                    <td class="govuk-table__cell">{{data['type-facility']}}</td>
-                    <td class="govuk-table__cell"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
-                  </tr>
-                  {% for i in allactivities %}
-                  <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">Activity {{loop.index}}</th>
-                    <td class="govuk-table__cell">{{[i]}}</td>
-                    <td class="govuk-table__cell"><a href="/activities" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
 
               <p class="govuk-body">These are identified by your risk assessment and our pre-application team.</p>
               {% set wasteActivities = allactivities %}
@@ -163,6 +146,14 @@
                     Waste recovery plan
                   </label>
                 </div>
+
+                <p class="govuk-body govuk-!-font-weight-bold">or</p>
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-8" name="waste-type" type="checkbox" value="no-other">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-8">
+                    None of the above
+                  </label>
+                </div>
               </div>
             </fieldset>
           </div>
@@ -174,5 +165,27 @@
         text: "Continue"
       }) }}
       </form>
+
+    </div>
+        <div class="govuk-grid-column-one-third">
+
+          <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+          <aside class="app-related-items" role="complementary">
+            <h2 class="govuk-heading-m" id="subsection-title">
+              Activities
+            </h2>
+            <nav role="navigation" aria-labelledby="subsection-title">
+              <ul class="govuk-list govuk-!-font-size-16">
+                  {% for i in allactivities %}
+                  <li>{{[i]}}</li>
+
+                  {% endfor %}
+              </ul>
+            </nav>
+          </aside>
+
+        </div>
+        </div>
 
 {% endblock %}

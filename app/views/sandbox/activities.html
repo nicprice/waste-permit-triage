@@ -16,7 +16,7 @@
 
     <h1 class="govuk-heading-xl">What activities are needed for your permit?</h1>
 
-    <form id="myform" class="form" action="/types-of-waste" method="post">
+    <form method="post" autocomplete="off" novalidate >
 
 
       {% set wasteActivities = allactivities %}
@@ -25,7 +25,7 @@
 
 
       <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-heading-m">Your activities list</caption>
+        <caption class="govuk-table__caption govuk-heading-m">Activites added to your permit</caption>
         <tbody class="govuk-table__body">
            {% set wasteActivities = allactivities %}
           {% if ((wasteActivities).length) %}
