@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+
+{% set title = "Do you accept any of these types of waste?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/experiments/activities"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+      <form method="post" autocomplete="off" novalidate >
+
+
+        {% set wasteActivities = allactivities %}
+        {% if 'Hazardous waste transfer station' in wasteActivities or
+        'Household waste amenity site taking hazardous waste' in wasteActivities or
+        'Physical treatment of hazardous waste' in wasteActivities or
+        'Clinical waste transfer station' in wasteActivities
+        %}
+          <div class="govuk-form-group">
+             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+               <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                 <h1 class="govuk-fieldset__heading">
+                   Types of waste
+                 </h1>
+               </legend>
+               <p class="govuk-body">Based on the activities you've selected, you accept the following types of waste:</p>
+               <ul class="govuk-list govuk-list--bullet">
+               {% else %}
+               <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                      <h1 class="govuk-fieldset__heading">
+                        Do you accept any of these types of waste?
+                      </h1>
+                    </legend>
+               {% endif %}
+
+               {% if 'Clinical waste transfer station' in wasteActivities %}
+               <li><p class="govuk-body govuk-!-font-weight-bold">Clinical Waste</p></li>
+               {% endif %}
+
+               {% if 'Hazardous waste transfer station' in wasteActivities or
+               'Household waste amenity site taking hazardous waste' in wasteActivities or
+               'Physical treatment of hazardous waste' in wasteActivities %}
+               <li><p class="govuk-body govuk-!-font-weight-bold">Hazardous Waste</p></li>
+               {% endif %}
+
+               {% set wasteActivities = allactivities %}
+               {% if 'Hazardous waste transfer station' in wasteActivities or
+               'Household waste amenity site taking hazardous waste' in wasteActivities or
+               'Physical treatment of hazardous waste' in wasteActivities or
+               'Clinical waste transfer station' in wasteActivities
+               %}
+               </ul>
+               {% endif %}
+
+
+
+           {% if 'Hazardous waste transfer station' in wasteActivities or
+           'Household waste amenity site taking hazardous waste' in wasteActivities or
+           'Physical treatment of hazardous waste' in wasteActivities or
+           'Clinical waste transfer station' in wasteActivities
+           %}
+
+           {% set additionalTypes %}
+               <span id="waste-hint" class="govuk-hint">
+                 Select all that apply.
+               </span>
+
+
+           <div class="govuk-checkboxes">
+
+             {% if 'Clinical waste transfer station' not in wasteActivities %}
+             <div class="govuk-checkboxes__item">
+               <input class="govuk-checkboxes__input" id="waste-2" name="waste-type" type="checkbox" value="clinical-waste">
+               <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                 Clinical waste
+               </label>
+             </div>
+             {% endif %}
+
+             <div class="govuk-checkboxes__item">
+               <input class="govuk-checkboxes__input" id="waste-3" name="waste-type" type="checkbox" value="combustible-waste">
+               <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                 Combustible waste
+               </label>
+             </div>
+
+             {% if 'Hazardous waste transfer station'in wasteActivities or
+             'Household waste amenity site taking hazardous waste' in wasteActivities or
+             'Physical treatment of hazardous waste' in wasteActivities %}
+             {% else %}
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="waste" name="waste-type" type="checkbox" value="hazardous-waste">
+                <label class="govuk-label govuk-checkboxes__label" for="waste">
+                  Hazardous waste
+                </label>
+              </div>
+            {% endif %}
+           </div>
+           {% endset -%}
+
+
+           {{ govukRadios({
+             idPrefix: "additional-types-of-waste-conditional",
+             name: "additional-types-of-waste",
+             fieldset: {
+               legend: {
+                 text: "Do you accept any other types of waste?",
+                 isPageHeading: false,
+                 classes: "govuk-fieldset__legend--m"
+               }
+             },
+             hint: {
+               text: "Select one option."
+             },
+             items: [
+               {
+                 value: "yes",
+                 text: "Yes",
+                 conditional: {
+                   html: additionalTypes
+                 }
+               },
+               {
+                 value: "no",
+                 text: "No"
+               }
+             ]
+           }) }}
+
+{% else %}
+<span id="waste-hint" class="govuk-hint">
+  Select the types of waste that you accept or continue
+</span>
+<div class="govuk-checkboxes">
+
+  <div class="govuk-checkboxes__item">
+    <input class="govuk-checkboxes__input" id="waste-2" name="waste-type" type="checkbox" value="clinical-waste">
+    <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+      Clinical waste
+    </label>
+  </div>
+
+  <div class="govuk-checkboxes__item">
+    <input class="govuk-checkboxes__input" id="waste-3" name="waste-type" type="checkbox" value="combustible-waste">
+    <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+      Combustible waste
+    </label>
+  </div>
+
+   <div class="govuk-checkboxes__item">
+     <input class="govuk-checkboxes__input" id="waste" name="waste-type" type="checkbox" value="hazardous-waste">
+     <label class="govuk-label govuk-checkboxes__label" for="waste">
+       Hazardous waste
+     </label>
+   </div>
+</div>
+</div>
+
+{% endif %}
+<br>
+
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+
+      </form>
+
+{% endblock %}

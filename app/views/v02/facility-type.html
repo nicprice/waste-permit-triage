@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% set title = "What type of facility do you want the permit for?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/index"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+      <form method="post" autocomplete="off" novalidate >
+
+
+        {% set installationHtml %}
+        <p class="govuk-body">Facilities which carry out industrial processes like refineries, food and drink factories and intensive farming activities.</p>
+        {% endset -%}
+
+        {% set wasteOperationHtml %}
+        <p class="govuk-body">For example, transfer stations, water treatment, recycling and composting.</p>
+        {% endset -%}
+
+        {% set waterDisachargeHtml %}
+        <p class="govuk-body">For example, sewage, industrial or trade discharge, clearing water channels.</p>
+        {% endset -%}
+
+        {{ govukRadios({
+        idPrefix: "type-facility",
+        name: "type-facility",
+        fieldset: {
+          legend: {
+            text: "What type of facility do you want the permit for?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        items: [
+          {
+            value: "Groundwater activity",
+            text: "Groundwater activity",
+            checked: checked("type-facility", "Groundwater activity")
+          },
+          {
+            value: "Installation",
+            text: "Installation",
+            checked: checked("type-facility", "Installation"),
+            conditional: {
+        html: installationHtml
+      }
+          },
+          {
+            value: "Landfill and deposit for recovery",
+            text: "Landfill and deposit for recovery",
+            checked: checked("type-facility", "Landfill and deposit for recovery")
+          },
+          {
+            value: "Medium combustion plant or specified generator",
+            text: "Medium combustion plant or specified generator",
+            checked: checked("type-facility", "Medium combustion plant or specified generator")
+          },
+          {
+            value: "Mining waste operation",
+            text: "Mining waste operation",
+            checked: checked("type-facility", "Mining waste operation")
+          },
+          {
+            value: "Waste operation",
+            text: "Waste operation",
+            checked: checked("type-facility", "Waste operation"),
+            conditional: {
+        html: wasteOperationHtml
+      }
+          },
+          {
+            value: "Water discharge",
+            text: "Water discharge",
+            checked: checked("type-facility", "Water discharge"),
+            conditional: {
+            html: waterDisachargeHtml
+            }
+          }
+        ]
+      }) }}
+
+      <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+
+    </div>
+  </div>
+
+
+{% endblock %}

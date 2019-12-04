@@ -29,64 +29,73 @@
 
       <form method="post" autocomplete="off" novalidate >
 
-        <table class="govuk-table">
-          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Facility<a style="float:right;" class="govuk-link govuk-caption-m" href="/facility-type">
-            Change<span class="govuk-visually-hidden"> facility</span>
-          </a></h2></caption>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{ data['type-facility'] }}</th>
-              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
-            </tr>
-          </tbody>
-        </table>
-<br>
-        <table class="govuk-table">
-          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Activities<a style="float:right;" class="govuk-link govuk-caption-m" href="/activities">
-            Change<span class="govuk-visually-hidden"> activities</span>
-          </a></h2></caption>
-          <tbody class="govuk-table__body">
-            {% for i in allactivities %}
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
-              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-<br>
-        <table class="govuk-table">
-          <caption class="govuk-table__caption"><h2 class="govuk-heading-m">Assessments<a style="float:right;" class="govuk-link govuk-caption-m" href="/add-assessments">
-            Change<span class="govuk-visually-hidden"> assessments</span>
-          </a></h2></caption>
-          <tbody class="govuk-table__body">
-            {% for i in allassessments %}
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{ [i] }}</th>
-              <td class="govuk-table__cell govuk-table__cell--numeric">£xxxx</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-<br>
-              <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                  <dt class="govuk-summary-list__key">
-                    <h2 class="govuk-heading-m">Total</h2>
-                  </dt>
-                  <dd class="govuk-summary-list__value">
-                  </dd>
-                  <dd class="govuk-summary-list__actions">
-                  <p  class="govuk-body govuk-!-font-weight-bold">£xxxx</p>
-                  </dd>
-                </div>
-                </dl>
-
-            <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
 
 
+        <table class="responsive-table govuk-table"  role="grid">
+    <!--  <caption class="heading-medium govuk-table__caption">Application charges</caption> -->
+        <thead class="govuk-table__header">
+          <tr role="row">
+            <th scope="col" class="govuk-table__header">Facility</th>
+            <td scope="col" class="govuk-table__cell govuk-table__cell--numeric"><a href="/facility-type">
+              Change<span class="govuk-visually-hidden"> facility</span>
+            </a></td>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr role="row">
+            <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric"><span class="table-heading"  aria-hidden="true">Facility</span>{{ data['type-facility'] }}</td>
+            <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric numeric"><span class="table-heading govuk-table__cell--numeric" aria-hidden="true">Charge</span>£xxxx</td>
+          </tr>
 
+        </tbody>
+</table>
+<table class="responsive-table govuk-table"  role="grid">
+
+        <thead class="govuk-table__header">
+          <tr role="row">
+            <th scope="col" class="govuk-table__header">Activities</th>
+            <td scope="col" class="govuk-table__cell govuk-table__cell--numeric"><a href="/activities">
+              Change<span class="govuk-visually-hidden"> activities</span>
+            </a></td>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for i in allactivities %}
+          <tr role="row">
+            <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric"><span class="table-heading"  aria-hidden="true">Activity</span>{{ [i] }}</td>
+            <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric numeric"><span class="table-heading govuk-table__cell--numeric" aria-hidden="true">Charge</span>£xxxx</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+      <table class="responsive-table govuk-table"  role="grid">
+
+
+            <thead class="govuk-table__header">
+              <tr role="row">
+                <th scope="col" class="govuk-table__header">Assessments</th>
+                <td scope="col" class="govuk-table__cell govuk-table__cell--numeric"><a href="/add-assessments">
+                  Change<span class="govuk-visually-hidden"> assessments</span>
+                </a></td>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              {% for i in allassessments %}
+              <tr role="row">
+                <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric"><span class="table-heading"  aria-hidden="true">Assessment</span>{{ [i] }}</td>
+                <td role="gridcell" class="govuk-table__cell govuk-table__cell--numeric numeric"><span class="table-heading govuk-table__cell--numeric" aria-hidden="true">Charge</span>£xxxx</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="table-foot govuk-!-font-weight-bold govuk-body">
+        <span class="table-total">Total</span>
+        <span class="total-value">£xxxx</span>
+        </div>
+
+  <p class="govuk-body">You must pay these charges before we will start assessing your application. You do not pay VAT on these costs.</p>
       {{ govukButton({
         text: "Start application"
       }) }}

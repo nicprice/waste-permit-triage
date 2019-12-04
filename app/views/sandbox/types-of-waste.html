@@ -44,14 +44,14 @@
                <ul class="govuk-list govuk-list--bullet">
                {% endif %}
 
+               {% if 'Clinical waste transfer station' in wasteActivities %}
+               <li><p class="govuk-body govuk-!-font-weight-bold">Clinical Waste</p></li>
+               {% endif %}
+
                {% if 'Hazardous waste transfer station' in wasteActivities or
                'Household waste amenity site taking hazardous waste' in wasteActivities or
                'Physical treatment of hazardous waste' in wasteActivities %}
                <li><p class="govuk-body govuk-!-font-weight-bold">Hazardous Waste</p></li>
-               {% endif %}
-
-               {% if 'Clinical waste transfer station' in wasteActivities %}
-               <li><p class="govuk-body govuk-!-font-weight-bold">Clinical Waste</p></li>
                {% endif %}
 
                {% set wasteActivities = allactivities %}
@@ -72,18 +72,6 @@
 
                <div class="govuk-checkboxes">
 
-                  {% if 'Hazardous waste transfer station'in wasteActivities or
-                  'Household waste amenity site taking hazardous waste' in wasteActivities or
-                  'Physical treatment of hazardous waste' in wasteActivities %}
-                  {% else %}
-                   <div class="govuk-checkboxes__item">
-                     <input class="govuk-checkboxes__input" id="waste" name="waste-type" type="checkbox" value="hazardous-waste">
-                     <label class="govuk-label govuk-checkboxes__label" for="waste">
-                       Hazardous waste
-                     </label>
-                   </div>
-                 {% endif %}
-
                  {% if 'Clinical waste transfer station' not in wasteActivities %}
                  <div class="govuk-checkboxes__item">
                    <input class="govuk-checkboxes__input" id="waste-2" name="waste-type" type="checkbox" value="clinical-waste">
@@ -99,6 +87,18 @@
                      Combustible waste
                    </label>
                  </div>
+
+                 {% if 'Hazardous waste transfer station'in wasteActivities or
+                 'Household waste amenity site taking hazardous waste' in wasteActivities or
+                 'Physical treatment of hazardous waste' in wasteActivities %}
+                 {% else %}
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="waste" name="waste-type" type="checkbox" value="hazardous-waste">
+                    <label class="govuk-label govuk-checkboxes__label" for="waste">
+                      Hazardous waste
+                    </label>
+                  </div>
+                {% endif %}
 
                  <p class="govuk-body govuk-!-font-weight-bold">or</p>
                  <div class="govuk-checkboxes__item">

@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+
+{% set title = "What assessments are needed for your permit?" %}
+
+{% block pageTitle %}
+    {{title}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+{% include "includes/phase_banner_beta.html" %}
+
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/v02/types-of-waste"
+  }) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+      <form method="post" autocomplete="off" novalidate >
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">
+                  What assessments are needed for your permit?
+                </h1>
+              </legend>
+
+        <!--      <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                  <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">Facility</th>
+                    <td class="govuk-table__cell">{{data['type-facility']}}</td>
+                    <td class="govuk-table__cell"><a href="/experiments/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                  </tr>
+                  {% for i in allactivities %}
+                  <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">Activity {{loop.index}}</th>
+                    <td class="govuk-table__cell">{{[i]}}</td>
+                    <td class="govuk-table__cell"><a href="/experiments/activities" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table> -->
+
+              <p class="govuk-body">These are identified by your risk assessment and our pre-application team.</p>
+              {% set wasteActivities = allactivities %}
+              {% set wasteType = data['waste-type'] or []%}
+              {% if 'combustible-waste' in wasteType or
+                'Household waste amenity site taking hazardous waste' in wasteActivities or
+                'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                'Household, commercial and industrial waste transfer station' in wasteActivities or
+                'Biological treatment of waste - not composting' in wasteActivities or
+                'Composting facility' in wasteActivities
+              %}
+                 <p class="govuk-body">Based on the activities you've selected, you're required to complete the following assessments:</p>
+                 <ul class="govuk-list govuk-list--bullet">
+              {% endif %}
+
+              {% if 'combustible-waste' in wasteType or
+                'Household waste amenity site taking hazardous waste' in wasteActivities or
+                'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                'Household, commercial and industrial waste transfer station' in wasteActivities
+                %}
+              <li><p class="govuk-body govuk-!-font-weight-bold">Fire prevention plan</p></li>
+              {% endif %}
+
+              {% if 'Household waste amenity site taking hazardous waste'in wasteActivities or
+              'Biological treatment of waste - not composting' in wasteActivities or
+              'Composting facility' in wasteActivities or
+              'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+              'Household, commercial and industrial waste transfer station' in wasteActivities
+               %}
+               <li><p class="govuk-body govuk-!-font-weight-bold">Odour management plan</p></li>
+              {% endif %}
+
+              {% if 'combustible-waste' in wasteType or
+                'Household waste amenity site taking hazardous waste' in wasteActivities or
+                'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                'Household, commercial and industrial waste transfer station' in wasteActivities or
+                'Biological treatment of waste - not composting' in wasteActivities or
+                'Composting facility' in wasteActivities
+              %}
+              </ul>
+              <span id="waste-hint" class="govuk-hint">
+                Select any other assessments that apply to your permit
+              </span>
+              {% else %}
+              <span id="waste-hint" class="govuk-hint">
+                Select any that apply
+              </span>
+              {% endif%}
+              <div class="govuk-checkboxes">
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste" name="waste-assessments" type="checkbox" value="Dust and emissions management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste">
+                    Dust and emissions management plan
+                  </label>
+                </div>
+
+              {% if 'combustible-waste' in wasteType or
+                  'Household waste amenity site taking hazardous waste' in wasteActivities or
+                  'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                  'Household, commercial and industrial waste transfer station' in wasteActivities
+                  %}{% else %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-2" name="waste-assessments" type="checkbox" value="Fire prevention plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                    Fire prevention plan
+                  </label>
+                </div>
+                {% endif %}
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-3" name="waste-assessments" type="checkbox" value="Habitats assessment">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                    Habitats assessment
+                  </label>
+                </div>
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-4" name="waste-assessments" type="checkbox" value="Noise and vibration emissions documents">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+                    Noise and vibration emissions documents
+                  </label>
+                </div>
+
+                {% if 'Household waste amenity site taking hazardous waste'in wasteActivities or
+                'Biological treatment of waste - not composting' in wasteActivities or
+                'Composting facility' in wasteActivities or
+                'Household waste amenity site taking non-hazardous waste only' in wasteActivities or
+                'Household, commercial and industrial waste transfer station' in wasteActivities
+                 %}{% else %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-5" name="waste-assessments" type="checkbox" value="Odour management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-5">
+                    Odour management plan
+                  </label>
+                </div>
+                {% endif %}
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-6" name="waste-assessments" type="checkbox" value="Pest management plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+                    Pest management plan
+                  </label>
+                </div>
+
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="waste-7" name="waste-assessments" type="checkbox" value="Waste recovery plan">
+                  <label class="govuk-label govuk-checkboxes__label" for="waste-7">
+                    Waste recovery plan
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+
+    <p class="govuk-body">Not sure? Call our helpline on 03708 506 506</p>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+{% endblock %}

@@ -5,7 +5,7 @@
 
 {% block beforeContent %}
 {% include "includes/phase_banner_beta.html"%}
-{{ govukBackLink({ text: "Back", href: "/facility-type" }) }}
+{{ govukBackLink({ text: "Back", href: "/v02/facility-type" }) }}
 {% endblock %}
 
 {% block content %}
@@ -19,18 +19,29 @@
 
       <table class="govuk-table">
         <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
+          <!--<tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Facility</th>
             <td class="govuk-table__cell">{{data['type-facility']}}</td>
-            <td class="govuk-table__cell"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
-            </tr>
-            {% for i in allactivities %}
+            <td class="govuk-table__cell"><a href="/experiments/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+            </tr>-->
+
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Activity {{loop.index}}</th>
+<th scope="row" class="govuk-table__header">Activity</th>
+<th scope="row" class="govuk-table__header">Action</th>
+              </tr>
+              {% set wasteActivities = allactivities %}
+             {% if ((wasteActivities).length) %}
+              {% for i in allactivities %}
+            <tr class="govuk-table__row">
               <td class="govuk-table__cell">{{[i]}}</td>
-              <td class="govuk-table__cell"><a href="/activities"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span></td>
+              <td class="govuk-table__cell"><a href="/v02/activities"  onclick="delete_element('{{i}}')" class="govuk-link" href="">Remove<span class="govuk-visually-hidden">{{[i]}}</span></td>
             </tr>
             {% endfor %}
+            {% else %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell" colspan = "2">No activities added</td>
+          </tr>
+              {% endif %}
           </tbody>
         </table>
 

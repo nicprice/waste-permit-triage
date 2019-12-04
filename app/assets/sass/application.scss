@@ -7,6 +7,7 @@ $govuk-assets-path: '/govuk/assets/';
 // Import GOV.UK Frontend and any extension styles if extensions have been configured
 @import "lib/extensions/extensions";
 
+
 // Patterns that aren't in Frontend
 @import "patterns/step-by-step-navigation";
 @import "patterns/task-list";
@@ -16,3 +17,4 @@ $govuk-assets-path: '/govuk/assets/';
 @import "components/cookie-banner";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+@import 'tables/transactions';

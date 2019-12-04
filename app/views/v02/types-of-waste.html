@@ -12,13 +12,14 @@
 
   {{ govukBackLink({
     text: "Back",
-    href: "/activities"
+    href: "/v02/activities"
   }) }}
 {% endblock %}
 
 
 
 {% block content %}
+
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -33,22 +34,22 @@
                  </h1>
                </legend>
 
-               <table class="govuk-table">
+          <!--     <table class="govuk-table">
                  <tbody class="govuk-table__body">
                    <tr class="govuk-table__row">
                      <th scope="row" class="govuk-table__header">Facility</th>
                      <td class="govuk-table__cell">{{data['type-facility']}}</td>
-                     <td class="govuk-table__cell"><a href="/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                     <td class="govuk-table__cell"><a href="/experiments/facility-type" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
                    </tr>
                    {% for i in allactivities %}
                    <tr class="govuk-table__row">
                      <th scope="row" class="govuk-table__header">Activity {{loop.index}}</th>
                      <td class="govuk-table__cell">{{[i]}}</td>
-                     <td class="govuk-table__cell"><a href="/activities" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
+                     <td class="govuk-table__cell"><a href="/experiments/activities" class="govuk-link" href="">Change<span class="govuk-visually-hidden">{{data["type-facility"]}}</span></td>
                    </tr>
                    {% endfor %}
                  </tbody>
-               </table>
+               </table> -->
 
                {% set wasteActivities = allactivities %}
                {% if 'Hazardous waste transfer station' in wasteActivities or
